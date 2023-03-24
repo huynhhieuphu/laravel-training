@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ShowDashboard;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PhotoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +37,12 @@ Route::prefix('admin')->name('admin.')->group(function() {
     //Single Action Controller
     Route::get('/dashboard', ShowDashboard::class)->name('dashboard');
 });
+
+
+// Resource Controller
+//Route::resource('posts', PostController::class);
+
+Route::resources([
+    'posts' => PostController::class,
+    'photos' => PhotoController::class
+]);
