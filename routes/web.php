@@ -23,3 +23,17 @@ Route::get('/', function () {
 // Load view - controller
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/export-pdf', [HomeController::class, 'exportPDF']);
+
+// Sub directory (Truy cập thư mục con)
+Route::get('/admin/categories' , function () {
+   return view('admin.categories.index');
+});
+
+// View Composer
+Route::get('/profile', function () {
+    return view('profile');
+});
+
+Route::get('/dashboard', function() {
+   return view('dashboard');
+});
