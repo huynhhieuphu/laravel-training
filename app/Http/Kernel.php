@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\FilterGlobal::class,
     ];
 
     /**
@@ -43,6 +44,7 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\FilterGroup::class,
         ],
     ];
 
@@ -63,6 +65,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'check.permission' => \App\Http\Middleware\CheckPermission::class
+        'check.permission' => \App\Http\Middleware\CheckPermission::class,
+        'checkAge' => \App\Http\Middleware\CheckAge::class,
+        'checkRole' => \App\Http\Middleware\CheckRole::class,
     ];
 }

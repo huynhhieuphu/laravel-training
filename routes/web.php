@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ShowDashboard;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\PhotoController;
+use App\Http\Middleware\CheckAge;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +17,23 @@ use App\Http\Controllers\PhotoController;
 |
 */
 
+Route::get('check-age/{age}', function ($age){
+   return $age .' đủ tuổi truy cập trang web này';
+})->middleware(CheckAge::class);
+
+// Đăng ký middleware trong app/Kernel.php
+Route::get('check-age/{age}', function ($age){
+    return $age .' đủ tuổi truy cập trang web này v2';
+})->middleware('checkAge');
+
 // client
 Route::get('/home', [HomeController::class, 'show']);
 
 // admin
 Route::prefix('admin')->name('admin.')->group(function() {
 
-    Route::prefix('category')->name('category.')->group(function () {
+    //Tham số middleware
+    Route::middleware('checkRole:staff')->prefix('category')->name('category.')->group(function () {
         Route::get('/', [AdminCategoryController::class, 'index'])->name('index');
         Route::get('/add', [AdminCategoryController::class, 'addCategory'])->name('add');
         Route::post('/add', [AdminCategoryController::class, 'handleAddCategory'])->name('handleAdd');
@@ -34,15 +43,5 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('/delete', [AdminCategoryController::class, 'deleteCategory'])->name('delete');
     });
 
-    //Single Action Controller
     Route::get('/dashboard', ShowDashboard::class)->name('dashboard');
 });
-
-
-// Resource Controller
-//Route::resource('posts', PostController::class);
-
-Route::resources([
-    'posts' => PostController::class,
-    'photos' => PhotoController::class
-]);
