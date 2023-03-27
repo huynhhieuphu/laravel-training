@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\ShowDashboard;
-use App\Http\Middleware\CheckAge;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,31 +13,27 @@ use App\Http\Middleware\CheckAge;
 |
 */
 
-Route::get('check-age/{age}', function ($age){
-   return $age .' đủ tuổi truy cập trang web này';
-})->middleware(CheckAge::class);
+//Load view - Route
+Route::get('/', function () {
+    $data = ['title' => 'Laravel Training', 'content' => 'View Laravel'];
+    // truyền tham số vào view
+    return view('welcome', $data);
+});
 
-// Đăng ký middleware trong app/Kernel.php
-Route::get('check-age/{age}', function ($age){
-    return $age .' đủ tuổi truy cập trang web này v2';
-})->middleware('checkAge');
+// Load view - controller
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/export-pdf', [HomeController::class, 'exportPDF']);
 
-// client
-Route::get('/home', [HomeController::class, 'show']);
+// Sub directory (Truy cập thư mục con)
+Route::get('/admin/categories' , function () {
+   return view('admin.categories.index');
+});
 
-// admin
-Route::prefix('admin')->name('admin.')->group(function() {
+// View Composer
+Route::get('/profile', function () {
+    return view('profile');
+});
 
-    //Tham số middleware
-    Route::middleware('checkRole:staff')->prefix('category')->name('category.')->group(function () {
-        Route::get('/', [AdminCategoryController::class, 'index'])->name('index');
-        Route::get('/add', [AdminCategoryController::class, 'addCategory'])->name('add');
-        Route::post('/add', [AdminCategoryController::class, 'handleAddCategory'])->name('handleAdd');
-        Route::get('/show/{id}', [AdminCategoryController::class, 'showCategory'])->name('show')->where('id', '\d+');
-        Route::get('/edit/{id}', [AdminCategoryController::class, 'editCategory'])->name('edit')->where('id', '[0-9]+');
-        Route::post('/update', [AdminCategoryController::class, 'handleUpdateCategory'])->name('handleUpdate');
-        Route::post('/delete', [AdminCategoryController::class, 'deleteCategory'])->name('delete');
-    });
-
-    Route::get('/dashboard', ShowDashboard::class)->name('dashboard');
+Route::get('/dashboard', function() {
+   return view('dashboard');
 });
