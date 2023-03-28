@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use Illuminate\Http\Request;
+use App\Http\Controllers\FormController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,27 +15,54 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-//Load view - Route
-Route::get('/', function () {
-    $data = ['title' => 'Laravel Training', 'content' => 'View Laravel'];
-    // truyền tham số vào view
-    return view('welcome', $data);
+Route::get('/foo/bar', function (Request $request) {
+    // phương thức path() lấy ra đường dẫn
+   return $request->path();
 });
 
-// Load view - controller
-Route::get('/home', [HomeController::class, 'index']);
-Route::get('/export-pdf', [HomeController::class, 'exportPDF']);
+Route::get('/admin/posts', function (Request $request) {
+    // phương thức is() kiểm tra đường dẫn tồn tại không ?
+//   if($request->is('admin/posts')) {
+//       return 'Trang Admin - Post';
+//   }
 
-// Sub directory (Truy cập thư mục con)
-Route::get('/admin/categories' , function () {
-   return view('admin.categories.index');
+    if($request->is('admin/*')) {
+        return 'Trang Admin - Post';
+    }
 });
 
-// View Composer
-Route::get('/profile', function () {
-    return view('profile');
+// Phương thức url() lấy ra đường dẫn URL không có chứ query string
+// Phương thức fullUrl() lấy ra toàn bộ đường dẫn URL bao gồm query string
+Route::fallback(function(Request $request) {
+   dd([
+       $request->url(),
+       $request->fullUrl()
+   ]);
 });
 
-Route::get('/dashboard', function() {
-   return view('dashboard');
+Route::get('/', function (Request $request) {
+    // Phương thức method() lấy ra tên phương thức HTTP (thường check Route::any hoặc Route::match)
+    echo 'Method HTTP: ' . $request->method() . '<br>';
+
+    if($request->isMethod('GET')) {
+        echo 'This is GET method HTTP';
+    }
 });
+
+Route::get('/', [FormController::class, 'show'])->name('form.show');
+Route::post('/post', [FormController::class, 'store'])->name('form.store');
+Route::get('/show-product', [FormController::class, 'showProduct'])->name('show.product');
+Route::post('/post-product', [FormController::class, 'storeProduct'])->name('store.product');
+
+
+Route::get('/book', function (Request $request) {
+    // ?search=duong+xua+may+tran&author=thich+nhat+hanh
+    // Lấy giá trị query string
+   dd($request->query('search'));
+});
+
+Route::get('/login', [FormController::class, 'login'])->name('form.login');
+Route::post('/handle-login', [FormController::class, 'handleLogin'])->name('form.handle.login');
+
+Route::get('/file', [FormController::class, 'file'])->name('form.file');
+Route::post('/handle-file', [FormController::class, 'handleFile'])->name('form.handle.file');
