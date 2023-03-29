@@ -13,4 +13,6 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-
+Route::get('/blade-template', [HomeController::class, 'demo']);
+Route::get('/news', [HomeController::class, 'news']);
+Route::get('/about', [HomeController::class, 'about']);
