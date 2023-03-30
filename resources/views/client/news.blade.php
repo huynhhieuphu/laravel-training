@@ -10,6 +10,18 @@
 
 @section('content')
     <h3>This is content News</h3>
+
+    @datetime('30-03-2022 04:19:30 PM')
+
+    @env('sandbox')
+        <p>Môi trường Test</p>
+    @elseenv('production')
+        <p>Môi trường Product</p>
+    @else
+        <p>Môi trường Local</p>
+    @endenv
+
+
 @endsection
 
 {{-- Nhúng css bằng yield --}}
