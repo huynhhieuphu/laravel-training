@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use Illuminate\Http\Request;
+use App\Http\Controllers\FormController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
