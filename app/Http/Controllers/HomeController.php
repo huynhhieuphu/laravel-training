@@ -40,7 +40,10 @@ class HomeController extends Controller
 
     public function news()
     {
-        return view('client.news');
+        $this->data['message'] = 'Xoá 1 record thành công';
+        $this->data['state'] = 'danger';
+        $this->data['title'] = 'Delete';
+        return view('client.news', $this->data);
     }
 
     public function about()

@@ -9,6 +9,12 @@
 @endsection
 
 @section('content')
+
+{{--    <x-package-alert></x-package-alert>--}}
+    <x-alert type="danger" :content="$message"/>
+
+    <x-button :button-state="$state" :title="$title" />
+
     <h3>This is content News</h3>
 
     @datetime('30-03-2022 04:19:30 PM')

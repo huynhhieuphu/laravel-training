@@ -11,6 +11,20 @@
 
 @section('content')
     <h3>This is content About</h3>
+
+{{--    <x-package-alert />--}}
+
+{{--    <h5>hoặc</h5>--}}
+
+{{--    <x-package-alert></x-package-alert>--}}
+
+
+{{--    <x-button />--}}
+
+{{--    <h5>hoặc</h5>--}}
+
+{{--    <x-inputs.button /> --}}
+
 @endsection
 
 @push('myStyle')
