@@ -7,31 +7,48 @@ use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
-    public function index() {
-        // truyền data vào view, có 3 cách:
-        $title = 'Laravel Training';
-        $content = 'View Laravel';
+    public $data = [];
 
-        // Cách 1: truyền data vào view 1 mảng
-//        $data = ['title' => $title, 'content' => $content];
-//        return view('home', $data);
+    public function demo() {
+        $this->data['title'] = 'Demo blade template';
+        $this->data['content'] = '<table border="1" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Iphone 14</td>
+                <td>19000000</td>
+            </tr>
+        </tbody>
+    </table>';
 
-        // Cách 2: Truyền data vào view bằng 1 hàm compact('varNameA', 'varNameB')
-        // các key tương ứng tên biến
-//        return view('home', compact('title', 'content'));
+        $this->data['categories'] = [
+            ['id' => 1, 'name' => 'tin tuc'],
+            ['id' => 2, 'name' => 'san pham'],
+            ['id' => 3, 'name' => 'khuyen mai'],
+        ];
 
-        // Cách 3: Truyền data vào view bằng phương thức with()
-//        $data = ['title' => $title, 'content' => $content];
-//        return view('home')->with($data);
+        $this->data['products'] = [];
 
-        // Thông thường sử dụng cách 1 hoặc 2 là nhiều.
-
-        // Load view dạng class view
-        return View::make('home', compact('title', 'content'));
+        return view('home', $this->data);
     }
 
-    public function exportPDF() {
-        // render HTML dạng khô
-        dd(view('report')->render());
+    public function news()
+    {
+        $this->data['message'] = 'Xoá 1 record thành công';
+        $this->data['state'] = 'danger';
+        $this->data['title'] = 'Delete';
+        return view('client.news', $this->data);
+    }
+
+    public function about()
+    {
+        return view('client.about');
     }
 }
