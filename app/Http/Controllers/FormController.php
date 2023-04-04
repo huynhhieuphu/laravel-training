@@ -68,20 +68,19 @@ class FormController extends Controller
             echo $request->input('username');
         }
 
+        // Demo Validation
+        if(!empty($request->input('password'))) {
+            return '<div>Insert Data</div>';
+        }
         // $request->flash() set session flash
-//        $request->flash();
 
-        // TH: khi validation mà false cần quay lại form
-        $validation = true;
-        if($validation) {
-//            $request->flash();
+        //            $request->flash();
 //            return redirect()->route('form.login');
 
-            // Cách ngắn gọn hơn
-            // hàm back() điều hướng về trang trước
-            // hàm withInput() tương tự $request->flash() set session flash
-            return back()->withInput();
-        }
+        // Cách ngắn gọn hơn
+        // hàm back() điều hướng về trang trước
+        // hàm withInput() tương tự $request->flash() set session flash
+        return back()->withInput();
     }
 
     public function file()
