@@ -14,6 +14,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/', function() {
+   return view('welcome');
+});
+
 Route::get('/demo-response', function() {
    return 'Hello world';
 });
@@ -68,3 +72,62 @@ Route::get('demo-response-set-view', function () {
         ->view('home', $data)
         ->header('Content-Type', 'text/html');
 });
+
+Route::get('/demo-response-set-json', function() {
+    $contentArr = ['product_id' => 1, 'product_name' => 'Iphone 14 pro max',
+        'product_price' => 28000000, 'product_color' => 'pink'
+    ];
+    return response()
+        ->json($contentArr, 201)
+        ->header('API-KEY', 'abc123');
+});
+
+Route::get('/form-login', function () {
+    return view('login');
+})->name('form.login');
+
+Route::post('/login', function (Request $request) {
+    if(!empty($request->input('password'))) {
+        return redirect()->route('form.login')->with('message', 'Insert Thành công');
+    }
+//    return redirect('/form-login');
+
+//    return back()->withInput();
+    //Tương tự như:
+    // $request->flash();
+    // return redirect()->route('login');
+
+
+//    return redirect()->route('form.login');
+//    return redirect(route('form.login'));
+
+//    return redirect()->route('form.login', ['id' => 1]);
+//    return redirect(route('form.login', ['id' => 1]));
+
+    return back()->withInput()->with('message', 'Insert Thất bại');
+});
+
+
+Route::get('/download-file', function (Request $request) {
+    $file = $request->query('d');
+    if(!empty($file)) {
+        $file = trim($file);
+        $fileName = basename($file);
+        return response()->download($file, $fileName);
+    }
+})->name('download.file');
+
+
+Route::get('/download-file-word', function (Request $request) {
+    $file = $request->query('d');
+    if(!empty($file)) {
+        $file = trim($file);
+        $fileName = basename($file);
+        $header = [
+            'Content-Type' => 'application/msword'
+        ];
+        return response()->download($file, $fileName, $header);
+    }
+})->name('download.file.word');
+
+

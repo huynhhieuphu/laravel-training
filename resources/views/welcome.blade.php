@@ -8,9 +8,16 @@
     <title>Laravel Training</title>
 </head>
 <body>
-    <h1 style="text-align: center">Laravel Training</h1>
+<img src="{{ asset('/downloadFile/What-is-Laravel.png')  }}">
 
-    <a href="<?php echo route('admin.dashboard') ?>">Dashboard</a><br>
-    <a href="<?php echo route('admin.products.edit', ['id' => 1]) ?>">Detail Product</a>
+<div>
+    <a href="{{route('download.file') . '?d=' . public_path('/downloadFile/What-is-Laravel.png')}}">Download File</a>
+    <br>
+    <a href="{{route('download.file.word') . '?d=' . public_path('/downloadFile/03-Routing Laravel.docx')}}">Download File Word</a>
+    <br>
+    <a href="{{route('download.stream') . '?d=https://photo2.tinhte.vn/data/attachment-files/2023/04/6382958_Cover.jpg' }} ">Download Stream</a>
+</div>
+
+
 </body>
 </html>
