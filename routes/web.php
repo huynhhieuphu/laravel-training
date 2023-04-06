@@ -129,5 +129,3 @@ Route::get('/download-file-word', function (Request $request) {
         return response()->download($file, $fileName, $header);
     }
 })->name('download.file.word');
-
-
