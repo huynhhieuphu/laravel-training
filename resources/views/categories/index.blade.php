@@ -33,16 +33,14 @@
                 @csrf
                 <div class="form-group">
                     <label for="category_name">Name</label>
-                    <input type="text" name="category_name" class="form-control">
-
+                    <input type="text" name="category_name" class="form-control" value="{{ old('category_name') }}">
                     @error('category_name')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="category_order">Order</label>
-                    <input type="text" name="category_order" class="form-control">
-
+                    <input type="text" name="category_order" class="form-control" value="{{ old('category_order') }}">
                     @error('category_order')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror

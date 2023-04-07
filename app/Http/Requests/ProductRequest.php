@@ -61,7 +61,7 @@ class ProductRequest extends FormRequest
             'product_order' => 'Thu tu San Pham'
         ];
     }
-
+    // bắt sự kiện sau khi validate
     public function withValidator($validator) {
         $validator->after(function($validator) {
            if($validator->errors()->count() > 0) {
@@ -69,7 +69,7 @@ class ProductRequest extends FormRequest
            }
         });
     }
-
+    // bắt sự kiện trước khi validate
     protected function prepareForValidation()
     {
         $this->merge([
