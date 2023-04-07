@@ -48,7 +48,7 @@ Route::get('/demo-response-status-codes', function() {
 });
 
 Route::get('/demo-response-set-header', function() {
-    return response('Demo response - set header')
+    return (new Response('Demo response - set header'))
         ->header('Content-type', 'text/plain')
         ->header('x-Header-One', 'value header one')
         ->header('x-Header-Two', 'value header two');
