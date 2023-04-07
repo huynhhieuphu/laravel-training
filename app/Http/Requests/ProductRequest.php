@@ -40,8 +40,8 @@ class ProductRequest extends FormRequest
 //        ];
 //
 //        return [
-//            'product_name.required' => 'Vui long nhap truong :attribute',
-//            'product_name.min' => 'Truong Name it nhat :min ky tu',
+//            'product_name.required' => 'Vui long nhap truong name',
+//            'product_name.min' => 'Truong Name it nhat 6 ky tu',
 //            'product_order.required' => 'Vui long nhap truong order',
 //            'product_order.integer' => 'Truong order khong hop le'
 //        ];

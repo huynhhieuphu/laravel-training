@@ -19,9 +19,20 @@ class CommentController extends Controller
 
         $request->validate([
             'comment_name' => ['required', (new Uppercase)],
-            'comment_email' => ['required', (new Uppercase)],
-            'comment_message' => ['required', (new Uppercase)],
+            'comment_email' => ['required','email'],
+            'comment_message' => ['required', function($attribute, $value, $fail) {
+//                $this->isUpperCase($value, 'Khong hop le', $fail);
+                isUpperCase($value, 'Khong hop le', $fail);
+            }],
         ]);
 
+        return 'next work';
+    }
+
+    private function isUpperCase($value, $message, $fail) {
+        if($value !== mb_strtoupper($value)) {
+            $fail($message);
+        }
+        return true;
     }
 }
