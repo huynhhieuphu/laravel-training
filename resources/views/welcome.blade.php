@@ -5,12 +5,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel Training</title>
+    <title>Validation - HttpResponseException</title>
 </head>
 <body>
-    <h1 style="text-align: center">Laravel Training</h1>
+    <h1>Home Page</h1>
 
-    <a href="<?php echo route('admin.dashboard') ?>">Dashboard</a><br>
-    <a href="<?php echo route('admin.products.edit', ['id' => 1]) ?>">Detail Product</a>
+    @if(session('message'))
+        <div>{{ session('message') }}</div>
+    @endif
 </body>
 </html>
