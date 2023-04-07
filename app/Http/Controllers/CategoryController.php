@@ -32,6 +32,7 @@ class CategoryController extends Controller
 
         $request->validate($rules, $messages);
 
+        //hoặc
         $request->validate([
             'category_name' => 'required|min:6',
             'category_order' => 'required|integer'

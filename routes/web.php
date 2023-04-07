@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,6 @@ Route::post('/product/create', [ProductController::class, 'add']);
 Route::get('/post', [PostController::class, 'index']);
 Route::get('/post/create', [PostController::class, 'create']);
 Route::post('/post/create', [PostController::class, 'add']);
+
+Route::get('/comment', [CommentController::class, 'create']);
+Route::post('/comment', [CommentController::class, 'add']);

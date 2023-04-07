@@ -130,6 +130,8 @@ return [
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    'uppercase' => 'Trường :attribute phải viết HOA (phương thức trans())',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -145,6 +147,14 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
+        'comment_name' => [
+            'uppercase' => 'Trường :attribute phải viết HOA (custom)'
+        ],
+
+        'comment_email' => [
+            'uppercase' => 'Trường :attribute phải viết HOA (custom)'
+        ],
     ],
 
     /*
@@ -158,6 +168,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'comment_name' => 'tên KH',
+        'comment_email' => 'email KH'
+    ],
 
 ];
