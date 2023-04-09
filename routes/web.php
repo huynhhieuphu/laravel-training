@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,6 @@ Route::post('/post/create', [PostController::class, 'add']);
 
 Route::get('/comment', [CommentController::class, 'create']);
 Route::post('/comment', [CommentController::class, 'add']);
+
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'handleLogin']);
