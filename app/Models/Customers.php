@@ -25,7 +25,7 @@ class Customers extends Model
 
     public function getDetail($id) {
         if(!empty($id)) {
-            return DB::select('SELECT * FROM '. $this->table .' WHERE customer_id = '. $id);
+            return DB::select('SELECT * FROM '. $this->table .' WHERE customer_id = ?', [$id]);
         }
         return [];
     }
@@ -38,7 +38,7 @@ class Customers extends Model
 
     public function deleteRecord($id) {
         if(!empty($id)) {
-            return DB::delete('DELETE FROM '. $this->table .' WHERE customer_id = '. $id);
+            return DB::delete('DELETE FROM '. $this->table .' WHERE customer_id = ?', [$id]);
         }
         return false;
     }
