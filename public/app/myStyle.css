@@ -1,8 +1,8 @@
 .text-default {
-    color: green;
+    color: skyblue;
 }
 
 .text-default:hover {
-    color: green;
+    color: skyblue;
     text-decoration: none;
 }

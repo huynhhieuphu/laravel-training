@@ -37,7 +37,7 @@
                     </div>
                 </form>
                 <table class="table table-border my-2">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
                             <th>No</th>
                             <th><a href="?column=user_firstname&direction={{ $direction }}" class="text-default justify-content-between d-flex align-items-center">Firstname {!! request()->query('column') == 'user_firstname' ? '<i class="fa fa-sort-'. request()->query('direction') .'" aria-hidden="true"></i>' : false !!}</a></th>
