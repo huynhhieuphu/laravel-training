@@ -1,0 +1,8 @@
+.text-default {
+    color: green;
+}
+
+.text-default:hover {
+    color: green;
+    text-decoration: none;
+}

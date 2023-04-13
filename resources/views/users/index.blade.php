@@ -40,9 +40,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th><a href="?column=user_firstname&direction={{ $direction }}">Firstname</a></th>
-                            <th><a href="?column=user_lastname&direction={{ $direction }}">Lastname</a></th>
-                            <th><a href="?column=user_email&direction={{ $direction }}">Email</a></th>
+                            <th><a href="?column=user_firstname&direction={{ $direction }}" class="text-default justify-content-between d-flex align-items-center">Firstname {!! request()->query('column') == 'user_firstname' ? '<i class="fa fa-sort-'. request()->query('direction') .'" aria-hidden="true"></i>' : false !!}</a></th>
+                            <th><a href="?column=user_lastname&direction={{ $direction }}" class="text-default justify-content-between d-flex align-items-center">Lastname {!! request()->query('column') == 'user_lastname' ? '<i class="fa fa-sort-'. request()->query('direction') .'" aria-hidden="true"></i>' : false !!}</a></th>
+                            <th><a href="?column=user_email&direction={{ $direction }}" class="text-default justify-content-between d-flex align-items-center">Email {!! request()->query('column') == 'user_email' ? '<i class="fa fa-sort-'. request()->query('direction') .'" aria-hidden="true"></i>' : false !!}</a></th>
                             <th>Group</th>
                             <th>Status</th>
                             <th>Action</th>
