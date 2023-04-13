@@ -35,10 +35,22 @@ class UserController extends Controller
             $keyword = $request->query('keyword');
         }
 
+        $this->data['direction'] = 'asc';
+        $direction = $request->query('direction');
+        $direction = trim($direction);
+        $column = $request->query('column');
+        $sortBy['column'] = trim($column);
+        $allowSortBy = ['asc', 'desc'];
 
+        if(!empty($direction) && in_array($direction, $allowSortBy)) {
+            if($direction == 'asc') {
+                $this->data['direction'] = 'desc';
+            }
+            $sortBy['direction'] = $direction;
+        }
 
         $this->data['title'] = 'List Users';
-        $this->data['users'] = $this->userModel->getAll($filter, $keyword);
+        $this->data['users'] = $this->userModel->getAll($filter, $keyword, $sortBy);
         $this->data['listGroups'] = $this->groupModel->getAll();
 //        dd($this->data);
         return view('users.index', $this->data);

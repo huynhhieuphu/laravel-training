@@ -40,9 +40,9 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
+                            <th><a href="?column=user_firstname&direction={{ $direction }}">Firstname</a></th>
+                            <th><a href="?column=user_lastname&direction={{ $direction }}">Lastname</a></th>
+                            <th><a href="?column=user_email&direction={{ $direction }}">Email</a></th>
                             <th>Group</th>
                             <th>Status</th>
                             <th>Action</th>
