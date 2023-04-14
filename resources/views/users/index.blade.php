@@ -7,7 +7,7 @@
 @section('content')
     <h1>{{ $title }}</h1>
 
-    @if(session()->has('insert_success'))
+    @if(session('insert_success'))
         <div class="alert alert-success">{{ session('insert_success') }}</div>
     @endif
 

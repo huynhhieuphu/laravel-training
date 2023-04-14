@@ -10,7 +10,7 @@
         <div class="alert alert-danger">{{ $msg }}</div>
     @endif
 
-    @if(session()->has('msg'))
+    @if(session('msg'))
         <div class="alert alert-danger">{{ session('msg') }}</div>
     @endif
 
