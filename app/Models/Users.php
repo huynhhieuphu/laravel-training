@@ -13,7 +13,7 @@ class Users extends Model
 
     protected $table = 'users';
 
-    public function getAll($filter = [], $keyword = null, $sortBy = [])
+    public function getAll($filter = [], $keyword = null, $sortBy = [], $page = null)
     {
 //        DB::enableQueryLog();
         $query = DB::table($this->table)
@@ -38,7 +38,14 @@ class Users extends Model
             $column = $this->table.'.'.$sortBy['column'];
             $direction = $sortBy['direction'];
         }
-        $query = $query->orderBy($column, $direction)->get();
+        $query = $query->orderBy($column, $direction);
+
+
+        if(!empty($page)) {
+            $query = $query->paginate($page)->withQueryString();
+        } else {
+            $query = $query->get();
+        }
 
 //        dd(DB::getQueryLog());
         return $query;

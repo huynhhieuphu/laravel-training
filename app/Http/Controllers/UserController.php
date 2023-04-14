@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    const _PER_PAGE = 5;
     public $data = [];
 
     private $userModel;
@@ -50,7 +51,7 @@ class UserController extends Controller
         }
 
         $this->data['title'] = 'List Users';
-        $this->data['users'] = $this->userModel->getAll($filter, $keyword, $sortBy);
+        $this->data['users'] = $this->userModel->getAll($filter, $keyword, $sortBy, self::_PER_PAGE);
         $this->data['listGroups'] = $this->groupModel->getAll();
 //        dd($this->data);
         return view('users.index', $this->data);
