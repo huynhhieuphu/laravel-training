@@ -47,8 +47,7 @@
             </div>
         </div>
     </form>
-    <a href="{{ route('dashboard.users.create') }}" target="_self" class="btn btn-success mt-2">Add User</a>
-    <a href="{{ route('dashboard.users.trash') }}" target="_self" class="btn btn-secondary mt-2">Trash</a>
+    <a href="{{route('dashboard.users.index')}}" target="_self" class="btn btn-info mt-2">List User</a>
     <table class="table table-border my-2">
         <thead class="thead-dark">
         <tr>
@@ -81,12 +80,8 @@
                     <td>{{$user->group_name}}</td>
                     <td>{!! $user->user_status == 1 ? '<span class="badge badge-pill badge-success">Active</span>' : '<span class="badge badge-pill badge-secondary">Inactive</span>' !!}</td>
                     <td class="d-flex">
-                        <form action="{{route('dashboard.users.remove')}}" method="post">
-                            @csrf
-                            <input type="hidden" name="user_id" value="{{ $user->user_id }}">
-                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
-                        </form>
-                        <a href="{{route('dashboard.users.edit', ['id' => $user->user_id])}}" target="_self" class="btn btn-sm btn-info mx-1">Edit</a>
+                        <a href="" target="_self" class="btn btn-sm btn-danger">Delete</a>
+                        <a href="" target="_self" class="btn btn-sm btn-primary mx-1">Rollback</a>
                     </td>
                 </tr>
             @empty

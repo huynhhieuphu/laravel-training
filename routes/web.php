@@ -20,5 +20,7 @@ Route::prefix('/dashboard')->name('dashboard.')->group(function(){
         Route::post('/add', [UserController::class, 'add'])->name('add');
         Route::get('/{id}/edit', [UserController::class, 'edit'])->name('edit');
         Route::post('/update', [UserController::class, 'update'])->name('update');
+        Route::post('/remove', [UserController::class, 'remove'])->name('remove');
+        Route::get('/trash', [UserController::class, 'trash'])->name('trash');
     });
 });

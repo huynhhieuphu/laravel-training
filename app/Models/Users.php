@@ -13,12 +13,18 @@ class Users extends Model
 
     protected $table = 'users';
 
-    public function getAll($filter = [], $keyword = null, $sortBy = [], $page = null)
+    public function getAll($filter = [], $keyword = null, $sortBy = [], $page = null, $trash = false)
     {
 //        DB::enableQueryLog();
         $query = DB::table($this->table)
             ->select($this->table.'.*', 'groups.group_name')
             ->join('groups', 'group_id', 'user_group_id');
+
+        $remove = 0;
+        if($trash) {
+            $remove = 1;
+        }
+        $query = $query->where('user_trash', $remove);
 
         if(!empty($filter)) {
             $query = $query->where($filter);
@@ -68,6 +74,13 @@ class Users extends Model
     public function updateRecord($id = null, $data = []) {
         if(!empty($id) && !empty($data)) {
             return DB::table($this->table)->where('user_id', $id)->update($data);
+        }
+        return false;
+    }
+
+    public function deleteRecord($id = null) {
+        if(!empty($id)) {
+            return DB::table($this->table)->where('user_id', $id)->delete();
         }
         return false;
     }

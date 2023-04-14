@@ -126,4 +126,62 @@ class UserController extends Controller
         }
         return redirect()->route('dashboard.users.index')->with('msg', 'Not Found');
     }
+
+    public function trash(Request $request) {
+        $filter = [];
+        $keyword = null;
+
+        if(!empty($request->query('group'))) {
+            $filter[] = ['user_group_id', '=' , $request->query('group')];
+        }
+
+        if(!empty($request->query('status'))) {
+            $status = $request->query('status') == 'active' ? 1 : 0;
+            $filter[] = ['user_status', '=' , $status];
+        }
+
+        if(!empty($request->query('keyword'))){
+            $keyword = $request->query('keyword');
+        }
+
+        $this->data['direction'] = 'asc';
+        $direction = $request->query('direction');
+        $direction = trim($direction);
+        $column = $request->query('column');
+        $sortBy['column'] = trim($column);
+        $allowSortBy = ['asc', 'desc'];
+
+        if(!empty($direction) && in_array($direction, $allowSortBy)) {
+            if($direction == 'asc') {
+                $this->data['direction'] = 'desc';
+            }
+            $sortBy['direction'] = $direction;
+        }
+
+        $this->data['title'] = 'List Trash';
+        $this->data['users'] = $this->userModel->getAll($filter, $keyword, $sortBy, self::_PER_PAGE, true);
+
+        return view('users.trash', $this->data);
+    }
+
+    public function remove(Request $request){
+        $userId = $request->input('user_id');
+        if($userId > 0) {
+            $user = $this->userModel->detailRecord($userId);
+            if(!empty($user)) {
+                $data = [
+                    'user_trash' => 1,
+                    'user_updated_at' => date('Y-m-d H:i:s', time())
+                ];
+                $updated = $this->userModel->updateRecord($user->user_id, $data);
+                if($updated) {
+                    return redirect()
+                        ->route('dashboard.users.index')
+                        ->with('insert_success', 'Removed Successfully');
+                }
+                return back()->withInput()->with('msg', 'Remove Failed');
+            }
+        }
+        return redirect()->route('dashboard.users.index')->with('msg', 'Not Found');
+    }
 }
