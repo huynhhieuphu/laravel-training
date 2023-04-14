@@ -9,6 +9,11 @@
     @if($errors->any())
         <div class="alert alert-danger">{{ $msg }}</div>
     @endif
+
+    @if(session()->has('msg'))
+        <div class="alert alert-danger">{{ session('msg') }}</div>
+    @endif
+
     <form action="{{ route('dashboard.users.add') }}" method="POST">
         @csrf
         <div class="form-group">

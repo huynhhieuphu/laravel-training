@@ -87,8 +87,8 @@ class UserController extends Controller
             'user_created_at' => date('Y-m-d H:i:s', time())
         ];
 
-        $user = $this->userModel->insertRecord($data);
-        if($user) {
+//        $user = $this->userModel->insertRecord($data);
+        if(false) {
             return redirect()
                 ->route('dashboard.users.index')
                 ->with('insert_success', 'Inserted Successfully');
