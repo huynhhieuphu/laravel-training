@@ -50,4 +50,11 @@ class Users extends Model
 //        dd(DB::getQueryLog());
         return $query;
     }
+
+    public function insertRecord($data = []) {
+        if(!empty($data)) {
+            return DB::table($this->table)->insert($data);
+        }
+        return false;
+    }
 }

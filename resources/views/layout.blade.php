@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="{{ asset('/app/myStyle.css?v='.time()) }}">
 </head>
 <body>
-    @yield('content')
+
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+            @yield('content')
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

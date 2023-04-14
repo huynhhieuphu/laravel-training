@@ -16,5 +16,7 @@ use App\Http\Controllers\UserController;
 Route::prefix('/dashboard')->name('dashboard.')->group(function(){
     Route::prefix('/users')->name('users.')->group(function(){
         Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/add', [UserController::class, 'add'])->name('add');
     });
 });
