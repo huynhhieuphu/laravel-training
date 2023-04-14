@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Users;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -17,6 +18,7 @@ class UserController extends Controller
     public function __construct() {
         $this->userModel = new Users();
         $this->groupModel = new Group();
+        $this->data['listGroup'] = $this->groupModel->getAll();
     }
 
     public function index(Request $request) {
@@ -52,32 +54,19 @@ class UserController extends Controller
 
         $this->data['title'] = 'List Users';
         $this->data['users'] = $this->userModel->getAll($filter, $keyword, $sortBy, self::_PER_PAGE);
-        $this->data['listGroup'] = $this->groupModel->getAll();
+
 //        dd($this->data);
         return view('users.index', $this->data);
     }
 
     public function create() {
         $this->data['title'] = 'Create User';
-        $this->data['listGroup'] = $this->groupModel->getAll();
         $this->data['msg'] = 'Vui lòng kiểm tra dữ liệu';
+        $this->data['selected'] = true;
         return view('users.create', $this->data);
     }
 
-    public function add(Request $request) {
-//        dd($request->all());
-        $request->validate([
-            'user_firstname' => 'required|string|max:100',
-            'user_lastname' => 'nullable|string|max:100',
-            'user_email' => 'required|email|unique:users,user_email',
-            'user_group_id' => ['required', function($attribute, $value, $fail){
-                if($value <= 0){
-                    $fail('Invalid data');
-                }
-            }],
-            'user_status' => 'required|in:0,1',
-        ]);
-
+    public function add(UserRequest $request) {
         $data = [
             'user_firstname' => $request->input('user_firstname'),
             'user_lastname' => $request->input('user_lastname'),
@@ -88,11 +77,53 @@ class UserController extends Controller
         ];
 
         $user = $this->userModel->insertRecord($data);
+
         if($user) {
             return redirect()
                 ->route('dashboard.users.index')
                 ->with('insert_success', 'Inserted Successfully');
         }
-        return back()->withInput()->with('msg', 'Error System');
+        return back()->withInput()->with('msg', 'Insert Failed');
+    }
+
+    public function edit($userId = 0) {
+        if($userId > 0) {
+            $user = $this->userModel->detailRecord($userId);
+            if(!empty($user)) {
+                session(['ss_user_id' => $user->user_id]);
+                $this->data['title'] = 'Edit User: ' . $user->user_firstname;
+                $this->data['user'] = $user;
+                return view('users.edit', $this->data);
+            }
+        }
+        return redirect()->route('dashboard.users.index')->with('msg', 'Not Found');
+    }
+
+    public function update(UserRequest $request){
+        $userId = session('ss_user_id');
+        session()->forget('ss_user_id');
+
+        if($userId > 0) {
+            $user = $this->userModel->detailRecord($userId);
+            if(!empty($user)) {
+                $data = [
+                    'user_firstname' => $request->input('user_firstname'),
+                    'user_lastname' => $request->input('user_lastname'),
+                    'user_email' => $request->input('user_email'),
+                    'user_group_id' => $request->input('user_group_id'),
+                    'user_status' => $request->input('user_status'),
+                    'user_updated_at' => date('Y-m-d H:i:s', time())
+                ];
+
+                $updated = $this->userModel->updateRecord($user->user_id, $data);
+                if($updated) {
+                    return redirect()
+                        ->route('dashboard.users.index')
+                        ->with('insert_success', 'Updated Successfully');
+                }
+                return back()->withInput()->with('msg', 'Update Failed');
+            }
+        }
+        return redirect()->route('dashboard.users.index')->with('msg', 'Not Found');
     }
 }

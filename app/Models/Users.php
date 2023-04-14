@@ -57,4 +57,18 @@ class Users extends Model
         }
         return false;
     }
+
+    public function detailRecord($id = null) {
+        if(!empty($id)) {
+            return DB::table($this->table)->where('user_id', $id)->first();
+        }
+        return false;
+    }
+
+    public function updateRecord($id = null, $data = []) {
+        if(!empty($id) && !empty($data)) {
+            return DB::table($this->table)->where('user_id', $id)->update($data);
+        }
+        return false;
+    }
 }

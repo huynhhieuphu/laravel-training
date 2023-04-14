@@ -11,6 +11,10 @@
         <div class="alert alert-success">{{ session('insert_success') }}</div>
     @endif
 
+    @if(session('msg'))
+        <div class="alert alert-danger">{{ session('msg') }}</div>
+    @endif
+
     <form action="">
         <div class="row">
             <div class="col-3">
@@ -77,7 +81,7 @@
                     <td>{!! $user->user_status == 1 ? '<span class="badge badge-pill badge-success">Active</span>' : '<span class="badge badge-pill badge-secondary">Inactive</span>' !!}</td>
                     <td class="d-flex">
                         <a href="" target="_self" class="btn btn-sm btn-danger">Delete</a>
-                        <a href="" target="_self" class="btn btn-sm btn-info">Edit</a>
+                        <a href="{{route('dashboard.users.edit', ['id' => $user->user_id])}}" target="_self" class="btn btn-sm btn-info">Edit</a>
                     </td>
                 </tr>
             @empty

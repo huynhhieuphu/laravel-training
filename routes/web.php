@@ -18,5 +18,7 @@ Route::prefix('/dashboard')->name('dashboard.')->group(function(){
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/create', [UserController::class, 'create'])->name('create');
         Route::post('/add', [UserController::class, 'add'])->name('add');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('edit');
+        Route::post('/update', [UserController::class, 'update'])->name('update');
     });
 });

@@ -6,10 +6,6 @@
 
 @section('content')
     <h1>{{ $title }}</h1>
-    @if($errors->any())
-        <div class="alert alert-danger">{{ $msg }}</div>
-    @endif
-
     @if(session('msg'))
         <div class="alert alert-danger">{{ session('msg') }}</div>
     @endif
