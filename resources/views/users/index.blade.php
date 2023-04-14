@@ -7,8 +7,8 @@
 @section('content')
     <h1>{{ $title }}</h1>
 
-    @if(session('insert_success'))
-        <div class="alert alert-success">{{ session('insert_success') }}</div>
+    @if(session('msg_success'))
+        <div class="alert alert-success">{{ session('msg_success') }}</div>
     @endif
 
     @if(session('msg'))

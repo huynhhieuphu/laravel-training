@@ -7,8 +7,8 @@
 @section('content')
     <h1>{{ $title }}</h1>
 
-    @if(session('insert_success'))
-        <div class="alert alert-success">{{ session('insert_success') }}</div>
+    @if(session('msg_success'))
+        <div class="alert alert-success">{{ session('msg_success') }}</div>
     @endif
 
     @if(session('msg'))
@@ -80,8 +80,16 @@
                     <td>{{$user->group_name}}</td>
                     <td>{!! $user->user_status == 1 ? '<span class="badge badge-pill badge-success">Active</span>' : '<span class="badge badge-pill badge-secondary">Inactive</span>' !!}</td>
                     <td class="d-flex">
-                        <a href="" target="_self" class="btn btn-sm btn-danger">Delete</a>
-                        <a href="" target="_self" class="btn btn-sm btn-primary mx-1">Rollback</a>
+                        <form action="{{route('dashboard.users.delete')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+                            <button type="submit" onclick="return confirm('Bạn có chắc không')" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                        <form action="{{route('dashboard.users.rollback')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $user->user_id }}">
+                            <button type="submit" class="btn btn-sm btn-primary ml-1">Rollback</button>
+                        </form>
                     </td>
                 </tr>
             @empty

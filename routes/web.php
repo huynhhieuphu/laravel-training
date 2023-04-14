@@ -22,5 +22,7 @@ Route::prefix('/dashboard')->name('dashboard.')->group(function(){
         Route::post('/update', [UserController::class, 'update'])->name('update');
         Route::post('/remove', [UserController::class, 'remove'])->name('remove');
         Route::get('/trash', [UserController::class, 'trash'])->name('trash');
+        Route::post('/delete', [UserController::class, 'delete'])->name('delete');
+        Route::post('/rollback', [UserController::class, 'rollback'])->name('rollback');
     });
 });
