@@ -10,6 +10,7 @@ use App\Http\Requests\UserRequest;
 class UserController extends Controller
 {
     const _PER_PAGE = 5;
+    const _PREFIX_USERS = 'user_';
     public $data = [];
 
     private $userModel;
@@ -24,38 +25,10 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $filter = [];
-        $keyword = null;
-
-        if (!empty($request->query('group'))) {
-            $filter[] = ['user_group_id', '=', $request->query('group')];
-        }
-
-        if (!empty($request->query('status'))) {
-            $status = $request->query('status') == 'active' ? 1 : 0;
-            $filter[] = ['user_status', '=', $status];
-        }
-
-        if (!empty($request->query('keyword'))) {
-            $keyword = $request->query('keyword');
-        }
-
-        $this->data['direction'] = 'asc';
-        $direction = $request->query('direction');
-        $direction = trim($direction);
-        $column = $request->query('column');
-        $sortBy['column'] = trim($column);
-        $allowSortBy = ['asc', 'desc'];
-
-        if (!empty($direction) && in_array($direction, $allowSortBy)) {
-            if ($direction == 'asc') {
-                $this->data['direction'] = 'desc';
-            }
-            $sortBy['direction'] = $direction;
-        }
-
+        $this->data['o'] = 'asc';
         $this->data['title'] = 'List Users';
-        $this->data['users'] = $this->userModel->getAll($filter, $keyword, $sortBy, self::_PER_PAGE);
+        $this->data['users'] = $this->userModel->getAll($this->filter($request->query()),
+            $this->search($request->query()), $this->sort($request->query(), self::_PREFIX_USERS), self::_PER_PAGE);
 
 //        dd($this->data);
         return view('users.index', $this->data);
@@ -135,38 +108,11 @@ class UserController extends Controller
 
     public function trash(Request $request)
     {
-        $filter = [];
-        $keyword = null;
-
-        if (!empty($request->query('group'))) {
-            $filter[] = ['user_group_id', '=', $request->query('group')];
-        }
-
-        if (!empty($request->query('status'))) {
-            $status = $request->query('status') == 'active' ? 1 : 0;
-            $filter[] = ['user_status', '=', $status];
-        }
-
-        if (!empty($request->query('keyword'))) {
-            $keyword = $request->query('keyword');
-        }
-
-        $this->data['direction'] = 'asc';
-        $direction = $request->query('direction');
-        $direction = trim($direction);
-        $column = $request->query('column');
-        $sortBy['column'] = trim($column);
-        $allowSortBy = ['asc', 'desc'];
-
-        if (!empty($direction) && in_array($direction, $allowSortBy)) {
-            if ($direction == 'asc') {
-                $this->data['direction'] = 'desc';
-            }
-            $sortBy['direction'] = $direction;
-        }
-
+        $this->data['o'] = 'asc';
         $this->data['title'] = 'List Trash';
-        $this->data['users'] = $this->userModel->getAll($filter, $keyword, $sortBy, self::_PER_PAGE, true);
+        $this->data['users'] = $this->userModel->getAll($this->filter($request->query()),
+            $this->search($request->query()), $this->sort($request->query(), self::_PREFIX_USERS), self::_PER_PAGE,
+            true);
 
         return view('users.trash', $this->data);
     }
@@ -228,5 +174,53 @@ class UserController extends Controller
             }
         }
         return redirect()->route('dashboard.users.index')->with('msg', 'Not Found');
+    }
+
+    private function filter($query)
+    {
+        $result = [];
+
+        if (!empty($query['group'])) {
+            $result[] = ['user_group_id', '=', $query['group']];
+        }
+
+        if (!empty($query['status'])) {
+            $status = $query['status'] == 'active' ? 1 : 0;
+            $result[] = ['user_status', '=', $status];
+        }
+        return $result;
+    }
+
+    private function search($query)
+    {
+        if (!empty($query['keyword'])) {
+            return $query['keyword'];
+        }
+
+        return null;
+    }
+
+    private function sort($query, $prefix)
+    {
+        $result = [];
+        $order = null;
+        $allowSortBy = ['asc', 'desc'];
+
+        if (!empty($query['s'])) {
+            $result['s'] = $prefix . trim($query['s']);
+        }
+
+        if (!empty($query['o'])) {
+            $order = trim($query['o']);
+        }
+
+        if (in_array($order, $allowSortBy)) {
+            if ($order == 'asc') {
+                $this->data['o'] = 'desc';
+            }
+            $result['o'] = $order;
+        }
+
+        return $result;
     }
 }

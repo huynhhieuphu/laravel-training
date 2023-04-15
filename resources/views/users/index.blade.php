@@ -53,14 +53,14 @@
         <thead class="thead-dark">
         <tr>
             <th>No</th>
-            <th><a href="?column=user_firstname&direction={{ $direction }}"
-                   class="text-default d-flex justify-content-between align-items-center">Firstname {!! request()->query('column') == 'user_firstname' ? '<i class="fa fa-sort-'. request()->query('direction') .'" aria-hidden="true"></i>' : false !!}</a>
+            <th><a href="?s=firstname&o={{ $o }}"
+                   class="text-default d-flex justify-content-between align-items-center">Firstname {!! request()->query('s') == 'firstname' ? '<i class="fa fa-sort-'. request()->query('o') .'" aria-hidden="true"></i>' : false !!}</a>
             </th>
-            <th><a href="?column=user_lastname&direction={{ $direction }}"
-                   class="text-default d-flex justify-content-between align-items-center">Lastname {!! request()->query('column') == 'user_lastname' ? '<i class="fa fa-sort-'. request()->query('direction') .'" aria-hidden="true"></i>' : false !!}</a>
+            <th><a href="?s=lastname&o={{ $o }}"
+                   class="text-default d-flex justify-content-between align-items-center">Lastname {!! request()->query('s') == 'lastname' ? '<i class="fa fa-sort-'. request()->query('o') .'" aria-hidden="true"></i>' : false !!}</a>
             </th>
-            <th><a href="?column=user_email&direction={{ $direction }}"
-                   class="text-default d-flex justify-content-between align-items-center">Email {!! request()->query('column') == 'user_email' ? '<i class="fa fa-sort-'. request()->query('direction') .'" aria-hidden="true"></i>' : false !!}</a>
+            <th><a href="?s=email&o={{ $o }}"
+                   class="text-default d-flex justify-content-between align-items-center">Email {!! request()->query('s') == 'email' ? '<i class="fa fa-sort-'. request()->query('o') .'" aria-hidden="true"></i>' : false !!}</a>
             </th>
             <th>Group</th>
             <th>Status</th>

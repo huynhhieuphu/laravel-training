@@ -16,37 +16,40 @@ class Users extends Model
     public function getAll($filter = [], $keyword = null, $sortBy = [], $page = null, $trash = false)
     {
 //        DB::enableQueryLog();
+
         $query = DB::table($this->table)
             ->select($this->table.'.*', 'groups.group_name')
             ->join('groups', 'group_id', 'user_group_id');
 
+        //trash
         $remove = 0;
+        $column = $this->table.'.user_created_at';
         if($trash) {
             $remove = 1;
+            $column = $this->table.'.user_updated_at';
+
         }
         $query = $query->where('user_trash', $remove);
-
+        // filter
         if(!empty($filter)) {
             $query = $query->where($filter);
         }
-
+        // search
         if(!empty($keyword)) {
             $query =$query->where(function (Builder $builder) use ($keyword) {
-                $builder->orWhere('user_firstname', 'LIKE', '%'.$keyword.'%')
-                    ->orWhere('user_lastname', 'LIKE', '%'.$keyword.'%')
-                    ->orWhere('user_email', 'LIKE', '%'.$keyword.'%');
+                $builder->orWhere($this->table.'.user_firstname', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere($this->table.'.user_lastname', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere($this->table.'.user_email', 'LIKE', '%'.$keyword.'%');
             });
         }
-
-        $column = $this->table.'.user_id';
+        // sort
         $direction = 'desc';
-        if(!empty($sortBy['column']) && !empty($sortBy['direction'])) {
-            $column = $this->table.'.'.$sortBy['column'];
-            $direction = $sortBy['direction'];
+        if(!empty($sortBy['s']) && !empty($sortBy['o'])) {
+            $column = $this->table.'.'.$sortBy['s'];
+            $direction = $sortBy['o'];
         }
         $query = $query->orderBy($column, $direction);
-
-
+        //pagination
         if(!empty($page)) {
             $query = $query->paginate($page)->withQueryString();
         } else {
