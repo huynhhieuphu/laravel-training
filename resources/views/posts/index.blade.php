@@ -47,8 +47,8 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $post->post_title }}</td>
                                 <td>{{ $post->post_publish }}</td>
-                                <td>
-                                    <form action="{{ route('post.delete', ['id' => $post->post_id]) }}" method="post">
+                                <td class="d-flex">
+                                    <form action="{{ route('post.delete', ['post' => $post]) }}" method="post">
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>

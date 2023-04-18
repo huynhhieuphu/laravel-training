@@ -89,8 +89,8 @@ Route::prefix('/post')->name('post.')->group(function() {
     Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::post('/update', [PostController::class, 'update'])->name('update');
     Route::get('/archive', [PostController::class, 'archive'])->name('archive');
-    Route::post('/delete/{id}', [PostController::class, 'delete'])->name('delete')->withTrashed();
-    Route::post('/restore/{id}', [PostController::class, 'restore'])->name('restore')->withTrashed();
+    Route::post('/delete/{post}', [PostController::class, 'delete'])->name('delete')->withTrashed();
+    Route::post('/restore/{post}', [PostController::class, 'restore'])->name('restore')->withTrashed();
 });
 
 Route::get('/mass-update', function () {
