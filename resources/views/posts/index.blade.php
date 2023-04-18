@@ -27,6 +27,7 @@
 
             <h1>List Post</h1>
             <a href="{{ route('post.create') }}" class="btn btn-success">New Post</a>
+                <a href="{{route('post.archive')}}" class="btn btn-warning">Archive Post</a>
             <table class="table table-border">
                 <thead>
                 <tr>
@@ -47,9 +48,8 @@
                                 <td>{{ $post->post_title }}</td>
                                 <td>{{ $post->post_publish }}</td>
                                 <td>
-                                    <form action="{{ route('post.delete') }}" method="post">
+                                    <form action="{{ route('post.delete', ['id' => $post->post_id]) }}" method="post">
                                         @csrf
-                                        <input type="hidden" name="post_name" value="{{ $post->post_id }}">
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                     <a href="{{route('post.edit', ['id' => $post->post_id])}}" class="btn btn-info">Edit</a>

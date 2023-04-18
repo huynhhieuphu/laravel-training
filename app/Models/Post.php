@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
     use HasFactory;
+
+    use SoftDeletes;
 
     /*protected $table = 'my_posts';
 
@@ -29,7 +32,16 @@ class Post extends Model
     protected $attributes = [
         'status' => 1
     ];*/
+
     protected $primaryKey = 'post_id';
 
     public $timestamps = false;
+
+    const DELETED_AT = 'post_deleted_at';
+
+    protected $fillable = [
+        'post_title',
+        'post_content',
+        'post_publish',
+    ];
 }
