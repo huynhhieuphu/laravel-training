@@ -16,6 +16,7 @@ class TrainingCategory extends Model
     const CREATED_AT = 'category_created_at';
 
     public function posts() {
-        return $this->belongsToMany(TrainingPost::class, 'training_categories_posts', 'category_id', 'post_id');
+        return $this->belongsToMany(TrainingPost::class, 'training_categories_posts', 'category_id', 'post_id')
+            ->as('detail');
     }
 }

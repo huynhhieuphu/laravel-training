@@ -23,12 +23,12 @@ class HomeController extends Controller
         // one - many
         $user = TrainingUser::find(1);
 //        dd($user->posts);
-
-//        dd($user->newPost);
+//
 //        dd($user->post);
+//        dd($user->newPost);
 
         // inverse
-//        $post = TrainingPost::find(1);
+        $post = TrainingPost::find(1);
 //        dd($post->user);
 
         // many - many
@@ -37,6 +37,18 @@ class HomeController extends Controller
 
         $category = TrainingCategory::find(3);
 //        dd($category->posts);
+
+        // Truy cập bảng trung gian (vd: training_categories_posts)
+//        foreach ($post->categories as $category) {
+//            $data[] = $category->pivot->category_id;
+//        }
+//        dd($data);
+
+//        // customize pivot
+//        foreach ($category->posts as $post) {
+//            $arrPost[] = $post->detail->post_id;
+//        }
+//        dd($arrPost);
 
         // method attach(), detach(), sync()
         $post = TrainingPost::find(1);
@@ -49,10 +61,10 @@ class HomeController extends Controller
         // pivot
 //        dd($post->categories);
 
-        $post = TrainingPost::find(6);
-        $post->categories()->sync([
-            2 => ['value_tmp' => 'abc'],
-            4 => ['value_tmp' => 'xyz']
-        ]);
+//        $post = TrainingPost::find(6);
+//        $post->categories()->sync([
+//            2 => ['value_tmp' => 'abc'],
+//            4 => ['value_tmp' => 'xyz']
+//        ]);
     }
 }
