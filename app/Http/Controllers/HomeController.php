@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EloquentHistory;
+use App\Models\EloquentSupplier;
+use App\Models\EloquentUser;
 use App\Models\TrainingAvatar;
 use App\Models\TrainingCategory;
 use App\Models\TrainingPost;
@@ -66,5 +69,11 @@ class HomeController extends Controller
 //            2 => ['value_tmp' => 'abc'],
 //            4 => ['value_tmp' => 'xyz']
 //        ]);
+    }
+
+    public function through()
+    {
+        $supplier = EloquentSupplier::find(1);
+        dd($supplier->userHistory);
     }
 }

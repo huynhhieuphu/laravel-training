@@ -14,3 +14,4 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/relationship', [HomeController::class, 'index']);
+Route::get('/through', [HomeController::class, 'through']);
