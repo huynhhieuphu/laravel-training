@@ -27,4 +27,15 @@ class EloquentTeam extends Model
             'user_id', // khóa chính ở bảng users
         );
     }
+
+    public function goal() {
+        return $this->hasOneThrough(
+            EloquentGoal::class,
+            EloquentUser::class,
+            'user_team_id', // khóa ngoại ở bảng trung gian users
+            'goal_user_id', // khóa ngoại ở bảng đích goals
+            'team_id', // khóa chính ở bảng teams
+            'user_id', // khóa chính ở bảng users
+        )->orderByDesc('goal_number_of_goals');
+    }
 }

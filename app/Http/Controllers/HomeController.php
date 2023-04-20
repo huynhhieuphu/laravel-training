@@ -84,8 +84,9 @@ class HomeController extends Controller
 //        dd($supplier->userHistory);
 
         // hasManyThrough
-        $team = EloquentTeam::findOrFail(1);
+        $team = EloquentTeam::findOrFail(2);
         // Truy cập thông qua bảng trung gian
-        dd($team->goals);
+//        dd($team->goals);
+        dd($team->goal);
     }
 }
