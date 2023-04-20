@@ -73,7 +73,12 @@ class HomeController extends Controller
 
     public function through()
     {
-        $supplier = EloquentSupplier::find(1);
-        dd($supplier->userHistory);
+        $supplier = EloquentSupplier::findOrFail(2);
+
+        // Truy cập thông thường
+//        dd($supplier->user->history);
+
+        // Truy cập thông qua bảng trung gian
+//        dd($supplier->userHistory);
     }
 }

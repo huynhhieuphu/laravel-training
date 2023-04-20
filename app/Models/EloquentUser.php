@@ -16,4 +16,8 @@ class EloquentUser extends Model
     public function supplier() {
         return $this->belongsTo(EloquentSupplier::class, 'user_supplier_id', 'supplier_id');
     }
+
+    public function history() {
+        return $this->hasOne(EloquentHistory::class, 'history_user_id', 'user_id');
+    }
 }
