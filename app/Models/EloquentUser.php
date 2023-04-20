@@ -20,4 +20,12 @@ class EloquentUser extends Model
     public function history() {
         return $this->hasOne(EloquentHistory::class, 'history_user_id', 'user_id');
     }
+
+    public function team() {
+        return $this->belongsTo(EloquentTeam::class, 'user_team_id', 'team_id');
+    }
+
+    public function goals() {
+        return $this->hasMany(EloquentGoal::class, 'goal_user_id', 'user_id');
+    }
 }

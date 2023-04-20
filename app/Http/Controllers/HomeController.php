@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EloquentHistory;
 use App\Models\EloquentSupplier;
+use App\Models\EloquentTeam;
 use App\Models\EloquentUser;
 use App\Models\TrainingAvatar;
 use App\Models\TrainingCategory;
@@ -73,12 +74,18 @@ class HomeController extends Controller
 
     public function through()
     {
-        $supplier = EloquentSupplier::findOrFail(2);
+        // hasOneThrough
+        $supplier = EloquentSupplier::findOrFail(1);
 
         // Truy cập thông thường
 //        dd($supplier->user->history);
 
         // Truy cập thông qua bảng trung gian
 //        dd($supplier->userHistory);
+
+        // hasManyThrough
+        $team = EloquentTeam::findOrFail(1);
+        // Truy cập thông qua bảng trung gian
+        dd($team->goals);
     }
 }
