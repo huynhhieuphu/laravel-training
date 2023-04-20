@@ -85,8 +85,13 @@ class HomeController extends Controller
 
         // hasManyThrough
         $team = EloquentTeam::findOrFail(2);
+
+//        foreach ($team->users as $user) {
+//            $dataTeamGoals[] = $user->goals;
+//        }
+//        dd($dataTeamGoals);
         // Truy cập thông qua bảng trung gian
-//        dd($team->goals);
-        dd($team->goal);
+        dd($team->goals);
+//        dd($team->goal);
     }
 }
