@@ -14,4 +14,9 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/relationship', [HomeController::class, 'index']);
+
 Route::get('/through', [HomeController::class, 'through']);
+
+// polymorphic relationships
+Route::get('/poly-one', [HomeController::class, 'polyOne']);
+Route::get('/poly-create-one', [HomeController::class, 'polyCreateOne']);

@@ -15,10 +15,12 @@ class TrainingPost extends Model
 
     const CREATED_AT = 'post_created_at';
 
+    // one - many
     public function user() {
         return $this->belongsTo(TrainingUser::class, 'post_user_id', 'user_id');
     }
 
+    // many - many
     public function categories() {
 //        return $this->belongsToMany(TrainingCategory::class, 'training_categories_posts', 'post_id', 'category_id');
 

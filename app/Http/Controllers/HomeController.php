@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EloquentHistory;
+use App\Models\EloquentPost;
 use App\Models\EloquentSupplier;
 use App\Models\EloquentTeam;
 use App\Models\EloquentUser;
@@ -10,6 +11,8 @@ use App\Models\TrainingAvatar;
 use App\Models\TrainingCategory;
 use App\Models\TrainingPost;
 use App\Models\TrainingUser;
+use App\Models\EloquentImage;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -93,5 +96,39 @@ class HomeController extends Controller
         // Truy cập thông qua bảng trung gian
         dd($team->goals);
 //        dd($team->goal);
+    }
+
+    public function polyOne() {
+        $user = EloquentUser::find(1);
+//        dd($user->image);
+
+        $post = EloquentPost::find(2);
+//        dd($post->image);
+
+        //inverse
+        $image = EloquentImage::find(2);
+//        dd($image->imageable);
+        // Lưu ý: không nên truy cập ngược vì không biết object là gì...
+        // Quan hệ đa hình chỉ nên truy cập xuôi.
+    }
+
+    public function polyCreateOne()
+    {
+//        $imageUser = new EloquentImage([
+//            'image_name' => 'image user 1',
+//            'image_url' => 'http://www.url.xyz/image-user-1',
+//        ]);
+//
+//        $user = EloquentUser::find(1);
+//        $user->image()->save($imageUser);
+
+//        $imagePost = new EloquentImage([
+//            'image_name' => 'image post 2',
+//            'image_url' => 'http://www.url.xyz/image-post-2',
+//        ]);
+//
+//        $post = EloquentPost::find(2);
+//        $result = $post->image()->save($imagePost);
+//        dd($result);
     }
 }

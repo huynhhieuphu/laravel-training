@@ -13,6 +13,7 @@ class EloquentUser extends Model
 
     protected $primaryKey = 'user_id';
 
+    // hasOneThrough
     public function supplier() {
         return $this->belongsTo(EloquentSupplier::class, 'user_supplier_id', 'supplier_id');
     }
@@ -21,11 +22,18 @@ class EloquentUser extends Model
         return $this->hasOne(EloquentHistory::class, 'history_user_id', 'user_id');
     }
 
+    // hasManyThrough
     public function team() {
         return $this->belongsTo(EloquentTeam::class, 'user_team_id', 'team_id');
     }
 
     public function goals() {
         return $this->hasMany(EloquentGoal::class, 'goal_user_id', 'user_id');
+    }
+
+    // polymorphic relationship
+    // one to one
+    public function image() {
+        return $this->morphOne(EloquentImage::class, 'imageable');
     }
 }
