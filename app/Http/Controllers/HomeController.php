@@ -165,12 +165,12 @@ class HomeController extends Controller
     }
 
     public function polyManyToMany() {
-        $post = EloquentPost::find(1);
-//        dd($post->tags);
-
+//        $post = EloquentPost::find(1);
+//
 //        foreach ($post->tags as $tag) {
 //            $tagArr[] = $tag->pivot->tag_id;
 //        }
+//
 //        dd($tagArr);
 
         $tag = EloquentTag::find(2);
@@ -194,7 +194,7 @@ class HomeController extends Controller
 //            $tag3->tag_id
 //        ]);
 
-        $post = EloquentPost::find(2);
-        $post->tags()->sync([$tag1->tag_id,$tag3->tag_id]);
+//        $post = EloquentPost::find(2);
+//        $post->tags()->sync([$tag1->tag_id,$tag3->tag_id]);
     }
 }
