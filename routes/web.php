@@ -19,4 +19,7 @@ Route::get('/through', [HomeController::class, 'through']);
 
 // polymorphic relationships
 Route::get('/poly-one', [HomeController::class, 'polyOne']);
-Route::get('/poly-create-one', [HomeController::class, 'polyCreateOne']);
+Route::get('/poly-one-create', [HomeController::class, 'polyOneCreate']);
+
+Route::get('/poly-many', [HomeController::class, 'polyMany']);
+Route::get('/poly-many-create', [HomeController::class, 'polyManyCreate']);

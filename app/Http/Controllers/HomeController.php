@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EloquentComment;
 use App\Models\EloquentHistory;
 use App\Models\EloquentPost;
 use App\Models\EloquentSupplier;
 use App\Models\EloquentTeam;
 use App\Models\EloquentUser;
+use App\Models\EloquentVideo;
 use App\Models\TrainingAvatar;
 use App\Models\TrainingCategory;
 use App\Models\TrainingPost;
@@ -112,7 +114,7 @@ class HomeController extends Controller
         // Quan hệ đa hình chỉ nên truy cập xuôi.
     }
 
-    public function polyCreateOne()
+    public function polyOneCreate()
     {
 //        $imageUser = new EloquentImage([
 //            'image_name' => 'image user 1',
@@ -129,6 +131,35 @@ class HomeController extends Controller
 //
 //        $post = EloquentPost::find(2);
 //        $result = $post->image()->save($imagePost);
+//        dd($result);
+    }
+
+    public function polyMany() {
+        $post = EloquentPost::find(1);
+//        dd($post->comments);
+//        dd($post->comment);
+
+        $video = EloquentVideo::find(2);
+//        dd($video->comments);
+        dd($video->comment);
+    }
+
+    public function polyManyCreate() {
+//        $commentPost1 = new EloquentComment(['comment_content' => 'comment post 1-1']);
+//        $commentPost2 = new EloquentComment(['comment_content' => 'comment post 1-2']);
+//
+//        $post = EloquentPost::find(1);
+//        $result = $post->comments()->saveMany([$commentPost1, $commentPost2]);
+//        dd($result);
+
+//        $commentVideo1 = new EloquentComment(['comment_content' => 'comment video 1-1']);
+//        $video = EloquentVideo::find(1);
+//        $result = $video->comments()->saveMany([$commentVideo1]);
+
+//        $commentVideo2 = new EloquentComment(['comment_content' => 'comment video 2-1']);
+//        $commentVideo3 = new EloquentComment(['comment_content' => 'comment video 2-2']);
+//        $video = EloquentVideo::find(2);
+//        $result = $video->comments()->saveMany([$commentVideo2, $commentVideo3]);
 //        dd($result);
     }
 }
