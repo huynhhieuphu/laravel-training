@@ -23,3 +23,6 @@ Route::get('/poly-one-create', [HomeController::class, 'polyOneCreate']);
 
 Route::get('/poly-many', [HomeController::class, 'polyMany']);
 Route::get('/poly-many-create', [HomeController::class, 'polyManyCreate']);
+
+Route::get('/poly-many-to-many', [HomeController::class, 'polyManyToMany']);
+Route::get('/poly-many-to-many-create', [HomeController::class, 'polyManyToManyCreate']);

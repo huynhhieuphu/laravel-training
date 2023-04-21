@@ -6,6 +6,7 @@ use App\Models\EloquentComment;
 use App\Models\EloquentHistory;
 use App\Models\EloquentPost;
 use App\Models\EloquentSupplier;
+use App\Models\EloquentTag;
 use App\Models\EloquentTeam;
 use App\Models\EloquentUser;
 use App\Models\EloquentVideo;
@@ -161,5 +162,39 @@ class HomeController extends Controller
 //        $video = EloquentVideo::find(2);
 //        $result = $video->comments()->saveMany([$commentVideo2, $commentVideo3]);
 //        dd($result);
+    }
+
+    public function polyManyToMany() {
+        $post = EloquentPost::find(1);
+//        dd($post->tags);
+
+//        foreach ($post->tags as $tag) {
+//            $tagArr[] = $tag->pivot->tag_id;
+//        }
+//        dd($tagArr);
+
+        $tag = EloquentTag::find(2);
+        dd($tag->posts);
+    }
+
+    public function polyManyToManyCreate() {
+        $tag1 = EloquentTag::find(1);
+        $tag2 = EloquentTag::find(2);
+        $tag3 = EloquentTag::find(3);
+
+        // insert 1 record
+//        $post = EloquentPost::find(2);
+//        $post->tags()->attach($tag1);
+
+        // insert multiple record
+//        $post = EloquentPost::find(1);
+//        $post->tags()->sync([
+//            $tag1->tag_id,
+//            $tag2->tag_id,
+//            $tag3->tag_id
+//        ]);
+
+        $post = EloquentPost::find(2);
+        $post->tags()->sync([$tag1->tag_id,$tag3->tag_id]);
     }
 }

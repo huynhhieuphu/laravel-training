@@ -24,8 +24,13 @@ class EloquentVideo extends Model
     }
 
     // many to many
-    public function tags() {
-        return $this->morphToMany(EloquentTag::class, 'taggable');
+    public function tags()
+    {
+        return $this->morphToMany(
+            EloquentTag::class, // class quan hệ
+            'taggable',  // tên đa hình
+            'eloquent_taggables', // tên bảng trung gian
+            'taggable_id', // khoá ngoại bảng trung gian
+            'tag_id'); // khoá liên quan bảng trung gian
     }
-
 }

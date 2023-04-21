@@ -15,21 +15,30 @@ class EloquentPost extends Model
 
     // polymorphic relationship
     // one to one
-    public function image() {
+    public function image()
+    {
         return $this->morphOne(EloquentImage::class, 'imageable');
     }
 
     // one to many
-    public function comments() {
+    public function comments()
+    {
         return $this->morphMany(EloquentComment::class, 'commentable');
     }
 
-    public function comment() {
+    public function comment()
+    {
         return $this->morphOne(EloquentComment::class, 'commentable')->latest();
     }
 
     // many to many
-    public function tags() {
-        return $this->morphToMany(EloquentTag::class, 'taggable');
+    public function tags()
+    {
+        return $this->morphToMany(
+            EloquentTag::class, // class quan hệ
+            'taggable',  // tên đa hình
+            'eloquent_taggables', // tên bảng trung gian
+            'taggable_id', // khoá ngoại bảng trung gian
+            'tag_id'); // khoá liên quan bảng trung gian
     }
 }
