@@ -26,3 +26,6 @@ Route::get('/poly-many-create', [HomeController::class, 'polyManyCreate']);
 
 Route::get('/poly-many-to-many', [HomeController::class, 'polyManyToMany']);
 Route::get('/poly-many-to-many-create', [HomeController::class, 'polyManyToManyCreate']);
+
+// eager loadding
+Route::get('/eager-loading', [HomeController::class, 'eagerLoading']);

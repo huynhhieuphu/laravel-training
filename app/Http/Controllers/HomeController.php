@@ -197,4 +197,35 @@ class HomeController extends Controller
 //        $post = EloquentPost::find(2);
 //        $post->tags()->sync([$tag1->tag_id,$tag3->tag_id]);
     }
+
+    public function eagerLoading() {
+//        $posts = TrainingPost::all();
+
+//        $posts = TrainingPost::with('user')->get();
+
+//        $posts = TrainingPost::with('user', 'categories')->get();
+        // hoặc
+//        $posts = TrainingPost::with(['user', 'categories'])->get();
+
+
+//        $posts = TrainingPost::with('user.avatar', 'categories')->get();
+
+//        $posts = TrainingPost::with(['user.avatar', 'categories' => function($query) {
+//            $query->where('value_tmp', 1);
+//        }])->get();
+
+//        $posts = TrainingPost::with(['user.avatar', 'categories'])
+//            ->withCount('categories')->get();
+
+
+//        $posts = $this->getAllPost()->with('user'); // LỖI
+        $posts = $this->getAllPost()->load('user');
+
+//        dd($posts);
+        return view('eager-loading', compact('posts'));
+    }
+
+    private function getAllPost() {
+        return TrainingPost::all();
+    }
 }
