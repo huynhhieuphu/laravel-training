@@ -29,3 +29,6 @@ Route::get('/poly-many-to-many-create', [HomeController::class, 'polyManyToManyC
 
 // eager loadding
 Route::get('/eager-loading', [HomeController::class, 'eagerLoading']);
+
+// Querying Relationship Existence
+Route::get('/relationship-exists', [HomeController::class, 'relationshipExists']);

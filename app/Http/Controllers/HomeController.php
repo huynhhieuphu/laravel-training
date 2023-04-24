@@ -207,6 +207,7 @@ class HomeController extends Controller
         // hoặc
 //        $posts = TrainingPost::with(['user', 'categories'])->get();
 
+//        $posts = TrainingPost::with(['user:user_id,user_name', 'categories'])->get();
 
 //        $posts = TrainingPost::with('user.avatar', 'categories')->get();
 
@@ -217,15 +218,49 @@ class HomeController extends Controller
 //        $posts = TrainingPost::with(['user.avatar', 'categories'])
 //            ->withCount('categories')->get();
 
-
 //        $posts = $this->getAllPost()->with('user'); // LỖI
         $posts = $this->getAllPost()->load('user');
 
-//        dd($posts);
         return view('eager-loading', compact('posts'));
     }
 
     private function getAllPost() {
         return TrainingPost::all();
+    }
+
+    public function relationshipExists() {
+        // lấy ra những user có post
+        $users = TrainingUser::has('posts')->get();
+
+        // lấy ra những user thuộc user id = 1 từ post
+        $users = TrainingUser::whereHas('posts', function ($query) {
+            $query->where('post_user_id', 1);
+        })->get();
+
+        // lấy ra những user thuộc category id = 4 hoặc có giá trị 'post 2' từ post
+        $post2 = 'post 2';
+
+        $users = TrainingUser::whereHas('posts', function ($query) use ($post2)  {
+            $post_tmp = $post2;
+            $query->whereHas('categories', function ($query2) use ($post_tmp) {
+                $query2->where('training_categories_posts.category_id', 4)
+                    ->orWhere('training_categories_posts.value_tmp', $post_tmp);
+            });
+        })->get();
+
+        // lấy ra những user thuộc user id = 1 từ post
+        $users = TrainingUser::whereRelation('posts', 'post_user_id', 1)->get();
+
+        // Ngược lại với has và whereHas
+
+        // lấy ra những user KHÔNG có post nào
+        $users = TrainingUser::doesntHave('post')->get();
+
+        // lấy ra những user KHÔNG user id = 1 từ post
+        $users = TrainingUser::whereDoesntHave('post', function ($query) {
+            $query->where('post_user_id', 1);
+        })->get();
+
+        dd($users);
     }
 }
