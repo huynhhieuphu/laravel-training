@@ -13,4 +13,6 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-
+Route::get('/', function(){
+    return 'run laravel';
+});
