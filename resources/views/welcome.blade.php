@@ -5,9 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel Training</title>
+    <title>Dashboard</title>
 </head>
 <body>
-    <h1>Welcome Laravel</h1>
+    <h1>Welcome {{ auth()->user()->name ?? false }}</h1>
+    <a href="{{ route('login.logout') }}">Logout</a>
 </body>
 </html>
