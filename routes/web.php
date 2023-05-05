@@ -24,3 +24,5 @@ Route::get('/login', [LoginController::class, 'index'])->name('login.form');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
+
+Route::post('/update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
