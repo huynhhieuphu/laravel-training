@@ -8,9 +8,6 @@
     <title>Laravel Training</title>
 </head>
 <body>
-    <h1 style="text-align: center">Laravel Training</h1>
-
-    <a href="<?php echo route('admin.dashboard') ?>">Dashboard</a><br>
-    <a href="<?php echo route('admin.products.edit', ['id' => 1]) ?>">Detail Product</a>
+    <h1>Welcome Laravel</h1>
 </body>
 </html>
