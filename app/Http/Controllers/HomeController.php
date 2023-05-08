@@ -30,4 +30,9 @@ class HomeController extends Controller
         }
         return redirect()->back()->with('fail', 'Update Fail');
     }
+
+    public function getAllUser() {
+        $users = User::all();
+        return view('list-user', compact('users'));
+    }
 }

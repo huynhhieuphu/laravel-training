@@ -15,7 +15,6 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register.form');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
@@ -23,6 +22,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/login', [LoginController::class, 'index'])->name('login.form');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
-
-Route::post('/update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
+Route::middleware('check.login')->group(function() {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::post('/update-profile', [HomeController::class, 'updateProfile'])->name('update-profile');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
+    Route::get('/list-user', [HomeController::class, 'getAllUser'])->name('list-user')->middleware('is.admin');
+});

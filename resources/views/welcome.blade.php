@@ -38,5 +38,11 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                <a href="{{ route('list-user') }}">List User</a>
+            </div>
+        </div>
     </div>
 @endsection
