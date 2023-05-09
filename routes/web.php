@@ -22,7 +22,7 @@ Route::get('/test-mail', function () {
     ];
 
     $toEmail = 'huynhhieu.phu@gmail.com';
-    $toName = 'support@local.abc';
+    $toName = 'Phú Huỳnh';
 
     Mail::send('emails.test', $data, function ($message) use($toEmail, $toName) {
         $message->to($toEmail, $toName);
