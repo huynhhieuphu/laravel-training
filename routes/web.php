@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +15,18 @@ use App\Http\Controllers\HomeController;
 */
 
 
+Route::get('/test-mail', function () {
+    $data = [
+        'name' => 'Phú',
+        'content' => 'Thử mail trong laravel'
+    ];
+
+    $toEmail = 'huynhhieu.phu@gmail.com';
+    $toName = 'support@local.abc';
+
+    Mail::send('emails.test', $data, function ($message) use($toEmail, $toName) {
+        $message->to($toEmail, $toName);
+        $message->subject('Chủ để gửi thử mail trong laravel');
+    });
+
+});
