@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
-
+use App\Http\Controllers\SendMailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Mail;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 Route::get('/test-mail', function () {
     $data = [
@@ -28,5 +27,10 @@ Route::get('/test-mail', function () {
         $message->to($toEmail, $toName);
         $message->subject('Chủ để gửi thử mail trong laravel');
     });
-
 });
+
+Route::get('/', function (){
+   return view('welcome');
+});
+
+Route::post('send-mail', [SendMailController::class, 'sendMail'])->name('send-mail');
